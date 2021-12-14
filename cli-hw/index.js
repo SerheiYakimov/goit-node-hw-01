@@ -1,12 +1,11 @@
 const chalk = require('chalk');
 const gradient = require('gradient-string');
 const { Command } = require('commander');
-const {
-    listContacts,
-    getContactById,
-    removeContact,
-    addContact
-} = require('./contacts');
+const { listContacts } = require('./controllers/contacts/listContacts');
+const { getContactById } = require('./controllers/contacts/getContactsById');
+const { removeContact } = require('./controllers/contacts/removeContact');
+const { addContact } = require('./controllers/contacts/addContact');
+
 
 
 const program = new Command();
@@ -63,4 +62,9 @@ const invokeAction = async ({ action, id, name, email, phone }) => {
   }
 }
 
-invokeAction(argv).then(() => console.log(gradient.rainbow('Operation success')));
+// invokeAction(argv).then(() => console.log(gradient.rainbow('Operation success')));
+(async () => {
+  await invokeAction(argv);
+  console.log(gradient.rainbow('Operation success'));
+})();
+
